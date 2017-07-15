@@ -13,7 +13,7 @@ import java.util.HashMap;
 @Controller
 @RequestMapping(value="table")
 public class MainController {
-
+/** testing 1 2 **/
     HashMap<String, Integer> placeAndScore = CategoryListings.loadData();
 
     @RequestMapping(value="")
