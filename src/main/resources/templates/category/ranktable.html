@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body>
+
+<h1>be | stl</h1>
+<h2 th:text="${category.name}"></h2>
+
+<table>
+
+    <tr><th> Name </th><th> Score </th></tr>
+    <div th:each="rest : ${restaurants}">
+        <tr><td th:text="${rest.name}"></td><td th:text="${rest.score}"></td><td><input type="submit" value="upvote"></input></td></tr>
+    </div>
+
+</table>
+<br/>
+Enter a new restaurant for us to judge!
+<br/>
+<form method="post" action="/category/rankTable" th:object="${category}">
+    <table>
+        <tr><td>Name:</td><td><input type="text"></input></td><td><input type="submit"></input></td></tr>
+    </table>
+    <input type="hidden" name="categoryId" th:value="${category.id}" />
+</form>
+<br/>
+
+
+
+<div id="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByAwM8QkrfFmXQCx5HIJ4XkxJcmcu7rPw&amp;callback=myMap"></script>
+<!--AIzaSyByAwM8QkrfFmXQCx5HIJ4XkxJcmcu7rPw -->
+</body>
+</html>
