@@ -9,15 +9,9 @@
 <body>
 <table>
 
-    <a href="/display">Categories</a> --- <a href="/display/burrito">Best Burrito</a> --- <a href="/display/burger">Best Burger</a> --- <a href="/display/pasta">Best Pasta</a> --- <a href="/">User Login</a>
-
     <h1>be | stl</h1>
 
     <tr><th> Name </th><th> Score </th></tr>
-
-    <div th:each="pair : ${listings}">
-        <tr><td th:text="${pair.key}"></td><td th:text="${pair.value}"></td><td><input type="submit" value="upvote"></input></td></tr>
-    </div>
 
 </table>
 <br/>
