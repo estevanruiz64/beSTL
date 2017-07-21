@@ -2,6 +2,7 @@ package org.launchcode.BeSTL.controllers;
 
 import org.launchcode.BeSTL.models.Category;
 import org.launchcode.BeSTL.models.Restaurant;
+import org.launchcode.BeSTL.models.Vote;
 import org.launchcode.BeSTL.models.data.CategoryDao;
 import org.launchcode.BeSTL.models.data.RestaurantDao;
 import org.launchcode.BeSTL.models.data.UserDao;
@@ -11,10 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import javax.swing.JPanel;
-
-
-import javax.swing.*;
 import javax.validation.Valid;
 
 /**
@@ -75,6 +72,7 @@ public class CategoryController {
         Category cat = categoryDao.findOne(id);
 
         model.addAttribute(new Restaurant());
+        model.addAttribute(new Vote());
 
         model.addAttribute("category", cat);
         model.addAttribute("title", cat.getName());
@@ -82,6 +80,29 @@ public class CategoryController {
 
         return "category/rankTable";
     }
+
+    @RequestMapping(value = "rankTable/upVote", method = RequestMethod.POST)
+    public String processVote(Model model,
+                              Vote newVote,
+                              @RequestParam int categoryId,
+                              @RequestParam int restId){
+
+        Category cat = categoryDao.findOne(categoryId);
+        Restaurant rest = restaurantDao.findOne(restId);
+
+        voteDao.save(newVote);
+        rest.addVote(newVote);
+        restaurantDao.save(rest);
+
+        model.addAttribute("title", cat.getName());
+        model.addAttribute("error", "");
+        model.addAttribute("category", cat);
+        model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
+
+        return "redirect:/category/rankTable/" + cat.getId();
+
+    }
+
 
     @RequestMapping(value = "rankTable", method = RequestMethod.POST)
     public String processAdd(@ModelAttribute  @Valid Restaurant newRestaurant,
@@ -92,6 +113,7 @@ public class CategoryController {
 
         if (errors.hasErrors()) {
             Category cat = categoryDao.findOne(categoryId);
+            model.addAttribute("title", cat.getName());
             model.addAttribute("error", "");
             model.addAttribute("category", cat);
             model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
@@ -105,6 +127,7 @@ public class CategoryController {
 
         for (Restaurant rest : restaurantDao.findByCategoryOrderByScoreDesc(cat)){
             if (rest.getName().equals(newRestaurant.getName())){
+                model.addAttribute("title", cat.getName());
                 model.addAttribute("category", cat);
                 model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
                 model.addAttribute("error", "This restaurant already exists in this category.");
@@ -113,6 +136,7 @@ public class CategoryController {
         }
 
         restaurantDao.save(newRestaurant);
+        model.addAttribute("title", cat.getName());
         model.addAttribute("error", "");
         model.addAttribute("category", cat);
         model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));

@@ -12,7 +12,7 @@
 
     <tr><th> Name </th><th> Score </th></tr>
     <div th:each="rest : ${restaurants}">
-        <tr><td th:text="${rest.name}"></td><td th:text="${rest.score}"></td><td><input type="submit" value="upvote"></input></td></tr>
+        <tr><td th:text="${rest.name}"></td><td th:text="${rest.score}"></td><td><form method="post" action="/category/rankTable/upVote" th:object="${vote}"><input type="hidden" name="restId" th:value="${rest.id}"/><input type="hidden" name="categoryId" th:value="${category.id}"/><input type="submit" value="upvote"></input></form></td></tr>
     </div>
 
 </table>

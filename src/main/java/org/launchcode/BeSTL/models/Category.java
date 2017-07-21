@@ -33,8 +33,8 @@ public class Category {
     public List getRests(){
         return restaurants;
     }
-    //Getters and Setters
 
+    //Getters and Setters
     public String getName() {
         return name;
     }

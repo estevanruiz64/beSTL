@@ -35,11 +35,17 @@ public class Restaurant {
     }
 
 
-
+    public void addVote(Vote vote){
+        this.getVotes().add(vote);
+        this.score = votes.size();
+    }
 
 
 
     //getters and setters
+    public List<Vote> getVotes() {
+        return votes;
+    }
 
     public String getName() {
         return name;

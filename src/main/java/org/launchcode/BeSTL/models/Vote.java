@@ -17,8 +17,8 @@ public class Vote {
     @ManyToOne
     private Restaurant restaurant;
 
-    @ManyToOne
-    private User user;
+//    @ManyToOne
+//    private User user;
 
 
     //getters and setters
@@ -30,11 +30,11 @@ public class Vote {
         this.restaurant = restaurant;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }
