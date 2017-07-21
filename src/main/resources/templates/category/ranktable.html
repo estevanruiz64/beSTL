@@ -8,7 +8,7 @@
 
 <h2 th:text="${category.name}"></h2>
 
-<table>
+<table id="rankTable">
 
     <tr><th> Name </th><th> Score </th></tr>
     <div th:each="rest : ${restaurants}">
@@ -21,9 +21,12 @@
 <br/>
 Enter a new restaurant for us to rank!
 <form method="post" action="/category/rankTable" th:object="${restaurant}">
+
     <table>
         <tr><td>Name:</td><td><input type="text" th:field="*{name}"></input></td><td><input type="submit"></input></td></tr><br/>
         <span th:errors="*{name}" class="error"></span>
+        <span th:text="${error}"></span>
+
 
     </table>
     <input type="hidden" name="categoryId" th:value="${category.id}" />

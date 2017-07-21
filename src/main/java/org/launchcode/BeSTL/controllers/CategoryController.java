@@ -50,17 +50,20 @@ public class CategoryController {
     public String processAdd(Model model, @ModelAttribute @Valid Category category, Errors errors){
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Category");
+            model.addAttribute("error", "");
+
             return "category/add";
         }
 
         for (Category cat : categoryDao.findAll()){
             if (cat.getName().equals(category.getName())){
                 model.addAttribute("title", "Add Category");
-
-                return "redirect:/category/add";
+                model.addAttribute("error", "This category already exists.");
+                return "category/add";
             }
         }
 
+        model.addAttribute("error", "");
         categoryDao.save(category);
 
         return "redirect:";
@@ -89,6 +92,7 @@ public class CategoryController {
 
         if (errors.hasErrors()) {
             Category cat = categoryDao.findOne(categoryId);
+            model.addAttribute("error", "");
             model.addAttribute("category", cat);
             model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
             return "category/rankTable";
@@ -103,11 +107,13 @@ public class CategoryController {
             if (rest.getName().equals(newRestaurant.getName())){
                 model.addAttribute("category", cat);
                 model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
+                model.addAttribute("error", "This restaurant already exists in this category.");
                 return "category/rankTable";
             }
         }
 
         restaurantDao.save(newRestaurant);
+        model.addAttribute("error", "");
         model.addAttribute("category", cat);
         model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
 
