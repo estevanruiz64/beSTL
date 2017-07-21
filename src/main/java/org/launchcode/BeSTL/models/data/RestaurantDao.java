@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface RestaurantDao extends CrudRepository<Restaurant, Integer> {
-    List<Restaurant> findByCategory(Category category);
+    List<Restaurant> findByCategoryOrderByScoreDesc(Category category);
 
 }

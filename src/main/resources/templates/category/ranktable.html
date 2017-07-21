@@ -3,8 +3,9 @@
 <head th:replace="fragments :: head">
 </head>
 <body>
-
 <h1>be | stl</h1>
+<nav th:replace="fragments :: nav"></nav>
+
 <h2 th:text="${category.name}"></h2>
 
 <table>
@@ -15,9 +16,10 @@
     </div>
 
 </table>
+<p th:unless="${restaurants} and ${restaurants.size()}"> No restaurants yet. Be the first to add one!</p>
 <br/>
-Enter a new restaurant for us to judge!
 <br/>
+Enter a new restaurant for us to rank!
 <form method="post" action="/category/rankTable" th:object="${restaurant}">
     <table>
         <tr><td>Name:</td><td><input type="text" th:field="*{name}"></input></td><td><input type="submit"></input></td></tr><br/>
