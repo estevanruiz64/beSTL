@@ -83,8 +83,19 @@ public class CategoryController {
             return "category/rankTable";
         }
 
+
+
         Category cat = categoryDao.findOne(categoryId);
         newRestaurant.setCategory(cat);
+
+        for (Restaurant rest : restaurantDao.findByCategoryOrderByScoreDesc(cat)){
+            if (rest.getName().equals(newRestaurant.getName())){
+                model.addAttribute("category", cat);
+                model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
+                return "category/rankTable";
+            }
+        }
+
         restaurantDao.save(newRestaurant);
         model.addAttribute("category", cat);
         model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
