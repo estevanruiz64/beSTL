@@ -75,16 +75,22 @@ public class CategoryController {
                                        Model model,
                                        @RequestParam int categoryId) {
 
+
         if (errors.hasErrors()) {
+            Category cat = categoryDao.findOne(categoryId);
+            model.addAttribute("category", cat);
+            model.addAttribute("restaurants", restaurantDao.findByCategory(cat));
             return "category/rankTable";
         }
 
         Category cat = categoryDao.findOne(categoryId);
-
         newRestaurant.setCategory(cat);
-
         restaurantDao.save(newRestaurant);
+        model.addAttribute("category", cat);
+        model.addAttribute("restaurants", restaurantDao.findByCategory(cat));
 
-        return "category/rankTable";
+
+
+        return "redirect:/category/rankTable/" + cat.getId();
     }
 }

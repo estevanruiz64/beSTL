@@ -29,6 +29,10 @@ public class Category {
     public Category(String name) {
         this.name = name;
     }
+
+    public List getRests(){
+        return restaurants;
+    }
     //Getters and Setters
 
     public String getName() {

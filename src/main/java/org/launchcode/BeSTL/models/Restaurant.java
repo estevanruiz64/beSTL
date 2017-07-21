@@ -2,6 +2,7 @@ package org.launchcode.BeSTL.models;
 
 import javax.validation.constraints.NotNull;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Restaurant {
     private int id;
 
     @NotNull
+    @Size(min=1, message="You didn't enter a name, dumby.")
     private String name;
 
     @OneToMany
