@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import javax.swing.JPanel;
 
+
+import javax.swing.*;
 import javax.validation.Valid;
 
 /**
@@ -48,6 +51,14 @@ public class CategoryController {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Category");
             return "category/add";
+        }
+
+        for (Category cat : categoryDao.findAll()){
+            if (cat.getName().equals(category.getName())){
+                model.addAttribute("title", "Add Category");
+
+                return "redirect:/category/add";
+            }
         }
 
         categoryDao.save(category);
