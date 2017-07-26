@@ -71,6 +71,38 @@ public class CategoryController extends AbstractController {
         return "category/rankTable";
     }
 
+    @RequestMapping(value = "rankTable/reVoke", method = RequestMethod.POST)
+    public String processVote(Model model,
+                              @RequestParam int restId,
+                              @RequestParam int categoryId,
+                              HttpServletRequest request){
+
+        Category cat = categoryDao.findOne(categoryId);
+        Restaurant rest = restaurantDao.findOne(restId);
+        User user = getUserFromSession(request.getSession());
+
+        if (voteDao.findByUserAndRestaurant(user, rest).size() < 1){
+            model.addAttribute("title", cat.getName());
+            model.addAttribute("error", "");
+            model.addAttribute("category", cat);
+            model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
+
+            return "redirect:/category/rankTable/" + cat.getUid();
+        }
+
+        Vote vote = voteDao.findFirstByUserAndRestaurant(user, rest);
+        rest.removeVote(vote);
+
+
+        model.addAttribute("title", cat.getName());
+        model.addAttribute("error", "");
+        model.addAttribute("category", cat);
+        model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
+
+        return "redirect:/category/rankTable/" + cat.getUid();
+
+    }
+
     @RequestMapping(value = "rankTable/upVote", method = RequestMethod.POST)
     public String processVote(Model model,
                               Vote newVote,

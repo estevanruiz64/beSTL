@@ -16,4 +16,5 @@ import java.util.List;
 @Transactional
 public interface VoteDao extends CrudRepository<Vote, Integer> {
     List<Vote> findByUserAndRestaurant(User user, Restaurant restaurant);
+    Vote findFirstByUserAndRestaurant(User user, Restaurant restaurant);
 }

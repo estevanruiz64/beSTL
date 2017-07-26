@@ -37,7 +37,10 @@ public class Restaurant extends AbstractEntity{
         this.score = votes.size();
     }
 
-
+    public void removeVote(Vote vote){
+        this.getVotes().remove(vote);
+        this.score = votes.size();
+    }
 
     //getters and setters
     public List<Vote> getVotes() {
