@@ -9,16 +9,13 @@ import javax.persistence.ManyToOne;
  * Created by estel on 7/20/2017.
  */
 @Entity
-public class Vote {
-    @Id
-    @GeneratedValue
-    private int id;
+public class Vote extends AbstractEntity {
 
     @ManyToOne
     private Restaurant restaurant;
 
-//    @ManyToOne
-//    private User user;
+    @ManyToOne
+    private User user;
 
 
     //getters and setters
@@ -30,11 +27,11 @@ public class Vote {
         this.restaurant = restaurant;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

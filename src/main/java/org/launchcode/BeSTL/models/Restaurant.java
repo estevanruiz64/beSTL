@@ -10,17 +10,14 @@ import java.util.List;
  * Created by estel on 7/15/2017.
  */
 @Entity
-public class Restaurant {
-    @Id
-    @GeneratedValue
-    private int id;
+public class Restaurant extends AbstractEntity{
 
     @NotNull
     @Size(min=1, message="You didn't enter a name, dumby.")
     private String name;
 
     @OneToMany
-    @JoinColumn(name = "restaurant_id")
+    @JoinColumn(name = "restaurant_uid")
     private List<Vote> votes = new ArrayList<>();
 
     private int score = votes.size();
@@ -61,10 +58,6 @@ public class Restaurant {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public Category getCategory() {

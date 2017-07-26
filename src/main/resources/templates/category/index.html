@@ -7,7 +7,7 @@
 <a href="/category/add">Add Category</a>
 <br/> <br/>
 <ul th:each="category : ${categories}">
-    <a th:href="'/category/rankTable/' + ${category.id}"><li th:text="${category.name}"></li></a>
+    <a th:href="'/category/rankTable/' + ${category.uid}"><li th:text="${category.name}"></li></a>
 </ul>
 
 </body>

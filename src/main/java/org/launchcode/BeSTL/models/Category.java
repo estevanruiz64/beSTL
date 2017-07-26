@@ -11,10 +11,7 @@ import javax.persistence.*;
  * Created by estel on 7/17/2017.
  */
 @Entity
-public class Category {
-    @Id
-    @GeneratedValue
-    private int id;
+public class Category extends AbstractEntity {
 
     @NotNull
     @Size(min = 3, max = 15, message = "Name must be between 3 and 15 characters.")
@@ -41,9 +38,5 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
     }
 }

@@ -3,11 +3,6 @@ package org.launchcode.BeSTL.controllers;
 import org.launchcode.BeSTL.models.Category;
 import org.launchcode.BeSTL.models.Restaurant;
 import org.launchcode.BeSTL.models.Vote;
-import org.launchcode.BeSTL.models.data.CategoryDao;
-import org.launchcode.BeSTL.models.data.RestaurantDao;
-import org.launchcode.BeSTL.models.data.UserDao;
-import org.launchcode.BeSTL.models.data.VoteDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,15 +14,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping(value="category")
-public class CategoryController {
-    @Autowired
-    CategoryDao categoryDao;
-    @Autowired
-    RestaurantDao restaurantDao;
-    @Autowired
-    UserDao userDao;
-    @Autowired
-    VoteDao voteDao;
+public class CategoryController extends AbstractController {
 
     @RequestMapping(value="")
     public String home(Model model) {
@@ -99,7 +86,7 @@ public class CategoryController {
         model.addAttribute("category", cat);
         model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
 
-        return "redirect:/category/rankTable/" + cat.getId();
+        return "redirect:/category/rankTable/" + cat.getUid();
 
     }
 
@@ -143,6 +130,6 @@ public class CategoryController {
 
 
 
-        return "redirect:/category/rankTable/" + cat.getId();
+        return "redirect:/category/rankTable/" + cat.getUid();
     }
 }

@@ -9,8 +9,23 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav th:fragment="nav">
-    <a href="/category">Categories</a>
-</nav>
+<div th:fragment="nav">
+    <div th:if="${userId}">
+
+        <nav class="user-nav">
+            <a href="/logout">Log Out</a>
+        </nav>
+        <nav>
+            <a href="/category">Categories</a>
+        </nav>
+    </div>
+
+    <div th:unless="${userId}">
+        <nav>
+            <a href="/login">Log In</a> |
+            <a href="/register">Register</a>
+        </nav>
+    </div>
+</div>
 </body>
 </html>

@@ -12,7 +12,7 @@
 
     <tr><th> Name </th><th> Score </th></tr>
     <div th:each="rest : ${restaurants}">
-        <tr><td th:text="${rest.name}"></td><td th:text="${rest.score}"></td><td><form method="post" action="/category/rankTable/upVote" th:object="${vote}"><input type="hidden" name="restId" th:value="${rest.id}"/><input type="hidden" name="categoryId" th:value="${category.id}"/><input type="submit" value="upvote"></input></form></td></tr>
+        <tr><td th:text="${rest.name}"></td><td th:text="${rest.score}"></td><td><form method="post" action="/category/rankTable/upVote" th:object="${vote}"><input type="hidden" name="restId" th:value="${rest.uid}"/><input type="hidden" name="categoryId" th:value="${category.uid}"/><input type="submit" value="upvote"></input></form></td></tr>
     </div>
 
 </table>
@@ -29,7 +29,7 @@ Enter a new restaurant for us to rank!
 
 
     </table>
-    <input type="hidden" name="categoryId" th:value="${category.id}" />
+    <input type="hidden" name="categoryId" th:value="${category.uid}" />
 </form>
 <br/>
 
@@ -52,7 +52,6 @@ Enter a new restaurant for us to rank!
     <span id="place-name"  class="title"></span><br/>
     <span id="place-address"></span>
 </div>
-<!-- Replace the value of the key parameter with your own API key. -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByAwM8QkrfFmXQCx5HIJ4XkxJcmcu7rPw&amp;libraries=places&amp;callback=initMap"></script>
 <!--AIzaSyByAwM8QkrfFmXQCx5HIJ4XkxJcmcu7rPw -->
 </body>
