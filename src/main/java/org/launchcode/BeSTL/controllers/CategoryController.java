@@ -82,6 +82,15 @@ public class CategoryController extends AbstractController {
         Restaurant rest = restaurantDao.findOne(restId);
         User user = getUserFromSession(request.getSession());
 
+        if (voteDao.findByUserAndRestaurant(user, rest).size() >= 1){
+            model.addAttribute("title", cat.getName());
+            model.addAttribute("error", "");
+            model.addAttribute("category", cat);
+            model.addAttribute("restaurants", restaurantDao.findByCategoryOrderByScoreDesc(cat));
+
+            return "redirect:/category/rankTable/" + cat.getUid();
+        }
+
         newVote.setUser(user);
         voteDao.save(newVote);
         rest.addVote(newVote);
