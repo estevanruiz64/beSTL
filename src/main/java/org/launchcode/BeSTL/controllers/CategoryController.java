@@ -2,11 +2,14 @@ package org.launchcode.BeSTL.controllers;
 
 import org.launchcode.BeSTL.models.Category;
 import org.launchcode.BeSTL.models.Restaurant;
+import org.launchcode.BeSTL.models.User;
 import org.launchcode.BeSTL.models.Vote;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -72,11 +75,14 @@ public class CategoryController extends AbstractController {
     public String processVote(Model model,
                               Vote newVote,
                               @RequestParam int categoryId,
-                              @RequestParam int restId){
+                              @RequestParam int restId,
+                              HttpServletRequest request){
 
         Category cat = categoryDao.findOne(categoryId);
         Restaurant rest = restaurantDao.findOne(restId);
+        User user = getUserFromSession(request.getSession());
 
+        newVote.setUser(user);
         voteDao.save(newVote);
         rest.addVote(newVote);
         restaurantDao.save(rest);

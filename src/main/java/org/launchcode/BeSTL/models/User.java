@@ -32,6 +32,8 @@ public class User extends AbstractEntity {
         this.pwHash = hashPassword(password);
     }
 
+
+
     public String getUsername() {
         return username;
     }
