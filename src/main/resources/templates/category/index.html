@@ -2,9 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head">
 </head>
-<body>
-<h1>be | stl</h1>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: nav"></nav>
 <a href="/category/add">Add Category</a>
+
 <br/> <br/>
 <ul th:each="category : ${categories}">
     <a th:href="'/category/rankTable/' + ${category.uid}"><li th:text="${category.name}"></li></a>
