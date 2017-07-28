@@ -24,7 +24,7 @@ public class AuthenticationController extends AbstractController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute @Valid RegisterForm form, Errors errors, HttpServletRequest request) {
+    public String register(Model model, @ModelAttribute @Valid RegisterForm form, Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             return "register";

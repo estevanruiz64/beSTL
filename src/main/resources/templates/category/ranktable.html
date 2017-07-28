@@ -6,28 +6,32 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: nav"></nav>
+<div class="container">
+<table id="rankTable" class="table table-bordered table-striped table-hover">
 
-<table id="rankTable">
-
-    <tr><th> Name </th><th> Score </th></tr>
+    <tr><th colspan="2" style="text-align: center;"> Name </th><th colspan="2" style="text-align: center;"> Score </th></tr>
     <div th:each="rest : ${restaurants}">
-        <tr><td th:text="${rest.name}"></td><td th:text="${rest.score}"></td><td><form method="post" action="/category/rankTable/upVote" th:object="${vote}"><input type="hidden" name="restId" th:value="${rest.uid}"/><input type="hidden" name="categoryId" th:value="${category.uid}"/><input type="submit" value="upvote"></input></form></td><td><form method="post" action="/category/rankTable/reVoke"><input type="hidden" name="restId" th:value="${rest.uid}"/><input type="hidden" name="categoryId" th:value="${category.uid}"/><input type="submit" value="revoke"></input></form></td></tr>
+        <tr><td colspan="2" th:text="${rest.name}"></td><td colspan="2" th:text="${rest.score}"></td><td><form method="post" action="/category/rankTable/upVote" th:object="${vote}"><input type="hidden" name="restId" th:value="${rest.uid}"/><input type="hidden" name="categoryId" th:value="${category.uid}"/><input type="submit" class="btn btn-default" value="upvote"></input></form></td><td><form method="post" action="/category/rankTable/reVoke"><input type="hidden" name="restId" th:value="${rest.uid}"/><input type="hidden" name="categoryId" th:value="${category.uid}"/><input type="submit" class="btn btn-default" value="revoke"></input></form></td></tr>
     </div>
 
 </table>
-<p th:unless="${restaurants} and ${restaurants.size()}"> No restaurants yet. Be the first to add one!</p>
+<p style="text-align: center;" th:unless="${restaurants} and ${restaurants.size()}"> No restaurants yet. Be the first to add one!</p>
+</div>
 <br/>
 <br/>
-Enter a new restaurant for us to rank!
+<div class="container">
+    <div style="text-align: center; font-size: 1.5em;">Enter a new restaurant for us to rank!</div>
 <form method="post" action="/category/rankTable" th:object="${restaurant}">
-
-    <table>
-        <tr><td>Name:</td><td><input type="text" th:field="*{name}"></input></td><td><input type="submit"></input></td></tr><br/>
+    <div class="form-group">
+    <table class="table">
+        <tr><td style="text-align: right; font-size:1.5em;">Name:</td><td><input type="text" class="form-control" th:field="*{name}"></input></td><td><input type="submit" class = "btn btn-default" value="add"></input></td></tr><br/>
         <span th:errors="*{name}" class="error"></span>
         <span th:text="${error}"></span>
     </table>
+    </div>
     <input type="hidden" name="categoryId" th:value="${category.uid}" />
 </form>
+</div>
 <br/>
 
 

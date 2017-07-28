@@ -6,12 +6,13 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: nav"></nav>
-<a href="/category/add">Add Category</a>
-
-<br/> <br/>
 <ul th:each="category : ${categories}">
     <a th:href="'/category/rankTable/' + ${category.uid}"><li th:text="${category.name}"></li></a>
 </ul>
 
+<br/>
+<div class="container" style="text-align:center;">
+Don't see the category you want? <a href="/category/add">Click here to add it.</a>
+</div>
 </body>
 </html>
