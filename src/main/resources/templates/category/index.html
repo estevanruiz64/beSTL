@@ -15,8 +15,18 @@
 </ul>
 </div>
 <br/>
-<div class="container" style="text-align:center;">
-Don't see the category you want? <a href="/category/add">Click here to add it.</a>
+
+<div class="container">
+    <div style="font-size: 1.5em; text-align: center;">Enter a new category below!</div><br/>
+    <form method="post" th:object="${category}">
+        <div class="form-group">
+            <table class="table">
+                <tr><td style="text-align: right; font-size:1.5em;">Name:</td><td><input class="form-control" th:field="*{name}"/></td><td><input type="submit" class="btn btn-default" value="add" /></td></tr>
+                <span th:errors="*{name}" class="error"></span>
+                <span th:text="${error}"></span>
+            </table>
+        </div>
+    </form>
 </div>
 </body>
 </html>

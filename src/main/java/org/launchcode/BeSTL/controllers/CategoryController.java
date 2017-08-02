@@ -19,22 +19,17 @@ import javax.validation.Valid;
 @RequestMapping(value="category")
 public class CategoryController extends AbstractController {
 
-    @RequestMapping(value="")
+    @RequestMapping(value="", method=RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("title", "Categories");
+        model.addAttribute(new Category());
+
         return "category/index";
     }
 
-    @RequestMapping(value="add", method= RequestMethod.GET)
-    public String displayAdd(Model model) {
-        model.addAttribute("title", "Add Category");
-        model.addAttribute(new Category());
-        return "category/add";
-    }
-
-    @RequestMapping(value="add", method=RequestMethod.POST)
-    public String processAdd(Model model, @ModelAttribute @Valid Category category, Errors errors){
+    @RequestMapping(value="", method=RequestMethod.POST)
+    public String processAddForm(Model model, @ModelAttribute @Valid Category category, Errors errors){
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Category");
             model.addAttribute("error", "");
@@ -53,7 +48,7 @@ public class CategoryController extends AbstractController {
         model.addAttribute("error", "");
         categoryDao.save(category);
 
-        return "redirect:";
+        return "redirect:/category";
     }
 
     @RequestMapping(value = "rankTable/{id}", method = RequestMethod.GET)
