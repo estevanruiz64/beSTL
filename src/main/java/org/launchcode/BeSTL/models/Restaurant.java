@@ -13,7 +13,7 @@ import java.util.List;
 public class Restaurant extends AbstractEntity{
 
     @NotNull
-    @Size(min=1, message="You didn't enter a name, dumby.")
+    @Size(min=1, message="You didn't enter a name.")
     private String name;
 
     @OneToMany
